@@ -18,9 +18,9 @@ return new class extends Migration
 
             $table->string('nombre');
             $table->text('apellidos');
-            $table->decimal('oferta', 10, 2);
+            $table->bigInteger('oferta');
             $table->string('direccion');
-            $table->string('telefono');
+            $table->bigInteger('telefono');
             $table->unsignedBigInteger('propiedad_id')->nullable();
             $table->foreign('propiedad_id')->references('id')->on('propiedades')->onDelete('cascade');
         });
