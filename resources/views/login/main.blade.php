@@ -83,7 +83,7 @@
     </div>
     <div class="second" style="background-image: url({{ asset('images/imagesPlantilla/houses.png') }});">
         <div class="container text-center jumbotron">
-            <h2 class="text-center">Sistema de gestión inmobiliaria</h2><br>
+            <h2 class="text-center">Inmobiliaria digital avanzada</h2><br>
             <div>
                 <img src="{{ asset('images/imagesPlantilla/logo2w.png') }}" style="width: 10%;display:inline;"><br>
             </div>
