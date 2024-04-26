@@ -59,28 +59,7 @@ class PropiedadesController extends Controller
         //obtenemos los datos recien creados
         $inmueble->refresh();
         Storage::put('public/store.txt', json_encode($inmueble->all()));
-        // Propiedades::create($request->validated());
-
-        // return redirect()->route('propiedades.index')
-        //     ->with('success', 'Inmueble creado.');
         return redirect::route("propiedades.edit", $inmueble->id)->with(['success' => 'Inmueble creado, por favor carga las imágenes en el recuadro más abajo']);
-
-        // return $request->all();
-        // Propiedades::create($request->validated());
-
-        // Manejar carga de imágenes
-        // if ($request->hasFile('images')) {
-        //     foreach ($request->file('images') as $image) {
-        //         $path = $image->store('public/images');
-        //         // Aquí puedes también guardar la ruta de la imagen en la base de datos o realizar otras acciones
-        //     }
-        // }
-
-        // // ----------------------------------------------------
-        // return redirect()->route('propiedades.index')->with('success', 'Propiedad creada con éxito');
-
-        // return redirect()->route('propiedades.index')
-        //     ->with('success', 'Propiedade created successfully.');
     }
 
 
@@ -101,41 +80,15 @@ class PropiedadesController extends Controller
 
     {
         $propiedad = Propiedades::find($id);
-        // $imagenes=Imagenes::find($id);
-        // $imagenes= DB::table('imagenes')->where('inmueble',$id);
-        // $user = Imagenes::with('Profile')->where('status', '1')->get();
         $imagenes = Imagenes::where('inmueble', $id)->get();
         $data = [
             'propiedad' => $propiedad,
             'imagenes' => $imagenes
         ];
-        // log::info(print_r($data, true));
-        // Storage::put('public/file.txt', json_encode($data));
         return view('propiedades.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(PropiedadesRequest $request, $id, $r)
-    // {
-    //     log::info(print_r($request, true));
-    //     $inmueble = Propiedades::find($id);
-    //     $inmueble->titulo = $request->input('titulo');
-    //     $inmueble->descripcion = $request->input('descripcion');
-    //     $inmueble->precio = $request->input('precio');
-    //     $inmueble->direccion = $request->input('direccion');
-    //     $inmueble->habitaciones = $request->input('habitaciones');
-    //     $inmueble->WC = $request->input('WC');
-    //     $inmueble->plantas = $request->input('plantas');
 
-    //     $inmueble->tipo = $request->input('tipo');
-    //     $inmueble->size = $request->input('size');
-    //     $inmueble->save();
-    //     $data = ['msg' => 'guardado'];
-
-    //     return view("propiedades.mensaje", compact('msg'));
-    // }
     public function update(PropiedadesRequest $request, Propiedades $propiedade)
     {
 

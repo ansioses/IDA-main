@@ -28,7 +28,6 @@ class DragDropController extends Controller
     public function uploadFiles(Request $request)
     {
         $image = $request->file('file');
-        // Storage::put('public/file.txt', json_encode($request->all()));
 
         $image = $request->file('file');
 
@@ -36,11 +35,6 @@ class DragDropController extends Controller
         $path = $image->store('public/images');
         $temp = explode('/', $path);
         $path = $temp[2];
-        // Storage::put('public/file.txt', $path);
-
-
-        //  return response()->json(['success'=>$imageName]);
-        // return redirect()->route('mensajes')->with($request->all());
 
         Imagenes::create([
             'inmueble' => $request->id,
