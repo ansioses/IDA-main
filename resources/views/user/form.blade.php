@@ -49,7 +49,17 @@
                 '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
             ) !!}
         </div>
-
+        <div class="mb-2 form-group mb20">
+            <label for="rol"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Rol') }}</label>
+            {{-- {{ $rol->attributes->role_id }} --}}
+            <select name="rol" id="rol">
+                @foreach ($roles as $role)
+                    <option value="{{ $role->name }}" @if (!empty($rol) && $role->name == $rol[0]->name) selected @endif>
+                        {{ $role->name }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
 
 </div>

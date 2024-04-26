@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Roles;
 use App\Http\Requests\UserRequest;
+use Hamcrest\Arrays\IsArray;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
@@ -24,6 +26,7 @@ class UserController extends Controller
     {
         $users = User::paginate();
 
+
         return view('user.index', compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * $users->perPage());
     }
@@ -34,19 +37,20 @@ class UserController extends Controller
         #no genera el usuario, devuelve la vista donde se generará pasándole un objeto user
         $user = new User();
         $roles = Role::get();
-        return view('user.create', compact('user'));
+        $rol = '';
+        return view('user.create', compact('user'))->with('roles', $roles)->with('rol', $rol);
     }
 
     public function store(UserRequest $request)
     {
-        #no se utiliza la funcionalidad incorporada de insercion en la base de datos
+        #no se utiliza la funcionalidad estándard de insercion en la base de datos
         //  para poder hacer un hash de la contraseña antes de guardarla
         $nuevoUser = $request->validated();
-        $usuario = new User();
-        $usuario->name = $nuevoUser['name'];
-        $usuario->email = $nuevoUser['email'];
-        $usuario->password = Hash::make($nuevoUser['password']);
-        $usuario->save();
+        User::create([
+            'name' => $nuevoUser['name'],
+            'email' => $nuevoUser['email'],
+            'password' => Hash::make($nuevoUser['password']), // Usa un hash para la contraseña
+        ])->assignRole($request->rol);
 
 
         return redirect()->route('users.index')
@@ -56,6 +60,7 @@ class UserController extends Controller
 
     public function show($id)
     {
+        //buscamos al usuario por su id
         $user = User::find($id);
 
         return view('user.show', compact('user'));
@@ -63,17 +68,34 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::find($id);
 
-        return view('user.edit', compact('user'));
+        //traemos los datos del usuario
+        $user = User::find($id);
+        //traemos los roles definidos
+        $roles = Role::get();
+        //consultamos el rol del usuario
+        $rol = DB::table('users')->leftJoin('model_has_roles', 'users.id', '=', 'model_id')
+            ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->where('users.id', $id)
+            ->get()->toArray();
+
+        return view('user.edit', compact('user'))->with('roles', $roles)->with('rol', $rol);
     }
 
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, $id)
     {
-        $user->update($request->validated());
+
+        //validamos los datos del formulario
+        $nuevoUser = $request->validated();
+        //actualizamos los datos del usuario
+        User::updateOrCreate(['id' => $id], [
+            'name' => $nuevoUser['name'],
+            'email' => $nuevoUser['email'],
+            'password' => Hash::make($nuevoUser['password']), // Usa un hash para la contraseña
+        ])->assignRole($request->rol)->with;
 
         return redirect()->route('users.index')
-            ->with('success', 'User updated successfully');
+            ->with('success', 'Usuario actualizado correctamente');
     }
 
     public function destroy($id)
