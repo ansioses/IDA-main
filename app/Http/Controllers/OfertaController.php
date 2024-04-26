@@ -50,7 +50,8 @@ class OfertaController extends Controller
             'id' => $id
         ];
         // dd($id);
-        return view('login.oferta', compact('data'))->with(['msg' => 'Oferta realizada']);
+        return redirect()->route('portal')->with(['msg' => 'Oferta realizada']);;
+        // return view('login.oferta', compact('data'))->with(['msg' => 'Oferta realizada']);
     }
 
     /**
@@ -82,6 +83,7 @@ class OfertaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        ofertas::find($id)->delete();
+        return redirect()->route('dashboard')->with('success', 'Oferta eliminada');;
     }
 }

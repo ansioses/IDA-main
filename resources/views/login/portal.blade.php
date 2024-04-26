@@ -65,6 +65,16 @@
             </ul>
         </div>
     </nav>
+    @if ($message = Session::get('success'))
+        <div class="m-4 alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+    @isset($msg)
+        <div class="m-4 alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endisset
 
     @yield('body')
 

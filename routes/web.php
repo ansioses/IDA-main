@@ -29,10 +29,10 @@ Route::resource('users', UserController::class)->names('admin.user');
 //ruta para gestionar las ofertas
 Route::put('oferta/{id}', [OfertaController::class, 'store'])->name('guardaoferta');
 Route::get('oferta/{id}', [OfertaController::class, 'index'])->name('oferta');
+Route::delete('oferta/{id}', [OfertaController::class, 'destroy'])->name('oferta');
 Route::get('show', [OfertaController::class, 'index'])->name('index');
 
-//para la gestión de inmuebles
-Route::resource('propiedades', PropiedadesController::class);
+
 //para la actualizacion de inmuebles creo una ruta propia en vez de utilizar la generada por resource con un fin educativo
 Route::PUT('updateprop/{id}', [PropiedadesController::class, 'updateprop'])->name('updateprop');
 //ruta para mostrar las imagenes asociadas a los inmuebles
@@ -41,18 +41,17 @@ Route::resource('imagenes', ImagenesController::class);
 Route::resource('bids', BidController::class);
 // ruta asociada a la generación de mensajes
 Route::resource('mensajes', MensajeController::class);
-//ruta para el crud de usuarios
-Route::resource('users', UserController::class);
-//ruta para la carga de  las imagenes asociadas a los inmuebles mediante la parte de formulario con un drag-and-drop utilizando AJAX
-Route::get('drag-drop-form', [DragDropController::class, 'form']);
-//ruta para ell guardado de imágenes
-Route::post('uploadFiles', [DragDropController::class, 'uploadFiles']);
 
+
+
+
+//gurpo de rutas protegido por la autenticación, redireccionarán al login
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    //rutas para la generación del panel, está en estado de testing
     Route::resource('dashboard', DashboardController::class)->names([
         'index'   => 'dashboard',
         'create'  => 'dashboard.create',
@@ -62,9 +61,20 @@ Route::middleware([
         'update'  => 'dashboard.update',
         'destroy' => 'dashboard.destroy',
     ]);;
-    // Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
-
+    //para la gestión de inmuebles
+    Route::resource('propiedades', PropiedadesController::class);
+    //ruta para el crud de usuarios
+    Route::resource('users', UserController::class);
+    //ruta para la carga de  las imagenes asociadas a los inmuebles mediante la parte de formulario con un drag-and-drop utilizando AJAX
+    Route::get('drag-drop-form', [DragDropController::class, 'form']);
+    //ruta para ell guardado de imágenes
+    Route::post('uploadFiles', [DragDropController::class, 'uploadFiles']);
+    //para la actualizacion de inmuebles creo una ruta propia en vez de utilizar la generada por resource con un fin educativo
+    Route::PUT('updateprop/{id}', [PropiedadesController::class, 'updateprop'])->name('updateprop');
+    //ruta para mostrar las imagenes asociadas a los inmuebles
+    Route::resource('imagenes', ImagenesController::class);
+    //ruta asociada al crud de ofertas
+    Route::resource('bids', BidController::class);
+    // ruta asociada a la generación de mensajes
+    Route::resource('mensajes', MensajeController::class);
 });

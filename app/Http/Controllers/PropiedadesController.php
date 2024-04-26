@@ -150,7 +150,7 @@ class PropiedadesController extends Controller
         Propiedades::find($id)->delete();
 
         return redirect()->route('propiedades.index')
-            ->with('success', 'Propiedade deleted successfully');
+            ->with('success', 'Propiedad eliminada');
     }
     //En vez de utilizar el método generado por laravel, creo el mío propio para el guardado del inmueble
     //La utilidad es conocer el funcionamiento manual del uso de la base de datos y el trabjo con controladores manuales
