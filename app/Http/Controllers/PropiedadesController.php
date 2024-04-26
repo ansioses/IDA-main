@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Propiedades;
 use App\Models\Imagenes;
 use App\Http\Requests\PropiedadesRequest;
-// use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
@@ -14,29 +13,24 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
 
-/**
- * Class PropiedadeController
- * @package App\Http\Controllers
- */
+
 class PropiedadesController extends Controller
 {
     public $atributo = "none";
-    /**
-     * Display a listing of the resource.
-     */
+
+    //retornar la vista con el listado de propiedades
     public function index()
     {
         $atributo = "none";
+        //llamamos al método por defecto del modelo que nos retorna todos los valores de la tabla propiedades dividos en grupos para paginar
         $propiedades = Propiedades::paginate();
-        $users = DB::table('Propiedades');
-
+        // $users = DB::table('Propiedades');
+        //retornamos la vista con los datos dividios en grupos para paginar
         return view('propiedades.index', compact('propiedades'))
             ->with('i', (request()->input('page', 1) - 1) * $propiedades->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    //redireccionaremos a la vista de creacion de propiedades
     public function create()
     {
         $atributo = "none";
@@ -44,21 +38,12 @@ class PropiedadesController extends Controller
         return view('propiedades.create')->with(compact('propiedad'), $atributo);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    //recibimos los datos del formulario en objeto de tipo PropiedadesRequest que realizará la validación
     public function store(PropiedadesRequest $request)
     {
-        // Storage::put('file.txt', $request);
-        // $validar = $request->validated();
-        // if ($validar->fails()) {
-        //     return view('view_name');
-        // } else {
-        //     return view('view_name');
-        // }
-
-        // Storage::put('public/store.txt', json_encode($request->all()));
+        //validacion de los datos recibidos
         $prop = $request->validated();
+        //creamos el objeto con los tipos definidos en el modelo de la tabla
         $inmueble = new Propiedades();
         $inmueble->titulo = $prop['titulo'];
         $inmueble->descripcion = $prop['descripcion'];
@@ -69,6 +54,7 @@ class PropiedadesController extends Controller
         $inmueble->plantas = $prop['plantas'];
         $inmueble->size = $prop['size'];
         $inmueble->tipo = $prop['tipo'];
+        //guardamos los datos utilizando los métodos del objeto
         $inmueble->save();
         //obtenemos los datos recien creados
         $inmueble->refresh();
@@ -170,6 +156,7 @@ class PropiedadesController extends Controller
     //La utilidad es conocer el funcionamiento manual del uso de la base de datos y el trabjo con controladores manuales
     public function updateprop(PropiedadesRequest $request, $id)
     {
+        //buscamos uan propiedad por su id
         $inmueble = Propiedades::find($id);
         $inmueble->titulo = $request->input('titulo');
         $inmueble->descripcion = $request->input('descripcion');
@@ -181,10 +168,12 @@ class PropiedadesController extends Controller
 
         $inmueble->tipo = $request->input('tipo');
         $inmueble->size = $request->input('size');
+        //guardamos los datos recibidos, estos ya fueron validados como correctos al recibirlos en un objeto de tipo PropiedadesRequest
         $inmueble->save();
         // $data = ['msg' => 'Cambios guardados'];
         $mensaje = 'Cambios guardados';
         // return view("propiedades.mensaje", $data);
+        //retornamos la vista con el mensaje deseado
         return redirect::route("propiedades.edit", $id)->with(['msg' => 'mensaje']);
     }
 }

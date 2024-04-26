@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OfertaRequest;
+use Illuminate\Support\Facades\Redirect;
+
 use App\Models\ofertas;
+use App\Models\Propiedades;
 use Illuminate\Http\Request;
 
 class OfertaController extends Controller
@@ -13,12 +17,12 @@ class OfertaController extends Controller
     public function index($id)
     {
         // $atributo = $request;
-        $oferta = new ofertas();
+        $propiedad = Propiedades::find($id);
         $data = [
             'id' => $id
         ];
         // dd($id);
-        return view('login.oferta', compact('data'))->with(compact('oferta'));
+        return view('login.oferta', compact('data'))->with(compact('propiedad'));
     }
 
     /**
@@ -29,12 +33,24 @@ class OfertaController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    //recibimos tanto los datos del formulario como el id del inmueble
+    public function store(OfertaRequest $request, $id)
     {
-        //
+        $oferta = new ofertas();
+        $oferta->nombre = $request->nombre;
+        $oferta->apellidos = $request->apellidos;
+        $oferta->oferta = $request->oferta;
+        $oferta->direccion = $request->direccion;
+        $oferta->telefono = $request->telefono;
+        $oferta->propiedad_id = $id;
+        // $oferta->validated();
+        $oferta->save();
+        $mensaje = 'Oferta realizada';
+        $data = [
+            'id' => $id
+        ];
+        // dd($id);
+        return view('login.oferta', compact('data'))->with(['msg' => 'Oferta realizada']);
     }
 
     /**

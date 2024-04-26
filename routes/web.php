@@ -27,7 +27,7 @@ Route::get('portal', [LoginController::class, 'index'])->name('portal');
 Route::resource('users', UserController::class)->names('admin.user');
 
 //ruta para gestionar las ofertas
-Route::put('guardaoferta/{id}', [OfertaController::class, 'store'])->name('guardaoferta');
+Route::put('oferta/{id}', [OfertaController::class, 'store'])->name('guardaoferta');
 Route::get('oferta/{id}', [OfertaController::class, 'index'])->name('oferta');
 Route::get('show', [OfertaController::class, 'index'])->name('index');
 

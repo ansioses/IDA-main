@@ -11,6 +11,8 @@ export default defineConfig({
                 'resources/css/oferta.css',
                 'resources/bootstrap/js/bootstrap.min.js',
                 'resources/bootstrap/css/bootstrap.min.css',
+                'resources/css/fontawesome-free/css/all.css',
+                'resources/css/icheck-bootstrap/icheck-bootstrap.min.css',
 
             ],
             refresh: true,
