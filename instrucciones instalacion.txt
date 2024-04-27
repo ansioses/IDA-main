@@ -3,7 +3,7 @@ ya tiene puesta la versión de php necesaria para ejecutar el proyecto.
 
 haría falta que se añadiese al path del sistema la ruta hasta el binario de php, para ello:
 
-inicio->configuracion->acerca de->configuracion avanzada del sistema->variables de entorno 
+inicio->configuracion->acerca de->configuracion avanzada del sistema->variables de entorno
 
 en variables de usuario editamos "path" y añadimos la ruta hasta la carpeta {ruta hasta laragon}\laragon-6.0.0\bin\php\php-8.2.18-Win32-vs16-x64
 
@@ -15,11 +15,11 @@ PHP 8.2.18 (cli) (built: Apr  9 2024 22:22:57) (ZTS Visual C++ 2019 x64)
 Copyright (c) The PHP Group
 Zend Engine v4.2.18, Copyright (c) Zend Technologies
 
-si tenemos instalado visual studio code (suminstrado en la carpeta software), podremos abrir la carpeta donde se encuentra el proyecto, si no con cualquier otro editor, pero vscode integra una terminal de comandos, utilizando otros IDEs deberemos usar una linea de comandos 
+si tenemos instalado visual studio code (suminstrado en la carpeta software), podremos abrir la carpeta donde se encuentra el proyecto, si no con cualquier otro editor, pero vscode integra una terminal de comandos, utilizando otros IDEs deberemos usar una linea de comandos
 y situarnos en la carpeta del proyecto.
 
 lo primero es renombrar el fichero .env2 a .env
-editamos este fichero y añadimo la clave "APP_KEY=" después de "APP_ENV=local", 
+editamos este fichero y añadimo la clave "APP_KEY=" después de "APP_ENV=local",
 laragon por defecto inicia mysql sin contraseña en el usuario root, así que no hace falta tocar nada más.
 
 A continuación, en la barra de tareas, donde están las aplicaciones en segundo plano, localizamos el icono de laragon. Hacemos botón derecho sobre el y vamos a la opción: MySQL-> HeidiSQL
@@ -64,13 +64,35 @@ volveremos a generar la app key mediante la web.
 
 ya podremos acceder al proyecto, pero no contiene datos ni hay un usuario administrador del sistema, para hacerlo rellenaremos la base de datos con semillas (seeders) que se han programado en laravel.
 
-en nuestra tercera terminal ejecutamos: 
-php artisan db:seed 
+en nuestra tercera terminal ejecutamos:
+php artisan db:seed
 php artisan db:seed UserSeeder
 
-para el acceso al panel, por ahora el usuario es albertovillardiaz@yahoo.com   pass: 12345678
+para el acceso al panel, por ahora el usuario es vilas@yahoo.com   pass: 12345678
 
- 
+estructura del proyecto:
+
+
+.env -> configuraciones iniciales del programa
+urls: routes->web.php
+validaciones: app->htttp->requests
+vistas: resources->views
+controladores: app->http->controllers
+requests:  app->http->requests
+modelos: app->models
+migraciones: database->migrations
+
+factories: database->factories
+
+seeders: database->seeders
+
+configuraciones: config
+
+
+
+
+
+
 
 
 
