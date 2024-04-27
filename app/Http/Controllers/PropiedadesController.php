@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
 
-
+//controla todo lo relacionado con los inmuebles
 class PropiedadesController extends Controller
 {
     public $atributo = "none";
@@ -24,7 +24,6 @@ class PropiedadesController extends Controller
         $atributo = "none";
         //llamamos al método por defecto del modelo que nos retorna todos los valores de la tabla propiedades dividos en grupos para paginar
         $propiedades = Propiedades::paginate();
-        // $users = DB::table('Propiedades');
         //retornamos la vista con los datos dividios en grupos para paginar
         return view('propiedades.index', compact('propiedades'))
             ->with('i', (request()->input('page', 1) - 1) * $propiedades->perPage());
@@ -63,54 +62,59 @@ class PropiedadesController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
+    //retornar una vista con los datos de una propiedad mediante su id
     public function show($id)
     {
+        //recoger los datos de la propiedad en concreto mediante su id
         $propiedad = Propiedades::find($id);
-
+        //retornamos la vista pasándole los datos de la propiedad
         return view('propiedades.show', compact('propiedad'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    //mostrar el formulario de la edición de propiedadades para uno en concreto
     public function edit($id)
 
     {
+        //recogemos los datos almacenados en la tabla para un determinado id
         $propiedad = Propiedades::find($id);
+        //recogemos las inmágenes almacenadas en la tabla para un determinado id de propiedad
         $imagenes = Imagenes::where('inmueble', $id)->get();
+        //cargamos ambos datos en un array
         $data = [
             'propiedad' => $propiedad,
             'imagenes' => $imagenes
         ];
+        //retornamos el formulario de edición con los datos cargados
         return view('propiedades.edit', compact('data'));
     }
 
-
+    //actualizar datos de las propiedades, recogemos los datos en un objeto de tipo PropiedadesRequest para que realice la
+    //validación de los datos introducidos, la validación (app->http->requests->PropiedadesRequest) retornará los errores
+    // que se generen mediante las reglas propuestas en la clase
     public function update(PropiedadesRequest $request, Propiedades $propiedade)
     {
-
+        //recogemos los datos proporcionados por el formulario de edición de propiedades y los actualizamos en la tabla
         $propiedade->update($request->validated());
-
+        //retornamos la vista del listado de propiedades con un mensaje a mostar
         return redirect()->route('propiedades.index')
-            ->with('success', 'Propiedade updated successfully');
+            ->with('success', 'Propiedad actualizada correctamente');
     }
-
+    //realiza el borrado de propiedades
     public function destroy($id)
     {
+        //buscamos la propiedad a borrar mediante su id y se elimina
         Propiedades::find($id)->delete();
-
+        //redireccionamos al listado de propiedades con un mensaje a mostrar
         return redirect()->route('propiedades.index')
             ->with('success', 'Propiedad eliminada');
     }
     //En vez de utilizar el método generado por laravel, creo el mío propio para el guardado del inmueble
-    //La utilidad es conocer el funcionamiento manual del uso de la base de datos y el trabjo con controladores manuales
+    //La utilidad es conocer el funcionamiento manual del uso de la base de datos y el trabjo con controladores propios
     public function updateprop(PropiedadesRequest $request, $id)
     {
         //buscamos uan propiedad por su id
         $inmueble = Propiedades::find($id);
+        //actualizamos los campos pertienentes con los valores recibidos
         $inmueble->titulo = $request->input('titulo');
         $inmueble->descripcion = $request->input('descripcion');
         $inmueble->precio = $request->input('precio');
@@ -118,14 +122,10 @@ class PropiedadesController extends Controller
         $inmueble->habitaciones = $request->input('habitaciones');
         $inmueble->WC = $request->input('WC');
         $inmueble->plantas = $request->input('plantas');
-
         $inmueble->tipo = $request->input('tipo');
         $inmueble->size = $request->input('size');
         //guardamos los datos recibidos, estos ya fueron validados como correctos al recibirlos en un objeto de tipo PropiedadesRequest
         $inmueble->save();
-        // $data = ['msg' => 'Cambios guardados'];
-        $mensaje = 'Cambios guardados';
-        // return view("propiedades.mensaje", $data);
         //retornamos la vista con el mensaje deseado
         return redirect::route("propiedades.edit", $id)->with(['msg' => 'mensaje']);
     }

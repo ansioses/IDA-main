@@ -6,19 +6,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class OfertaRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
+
+    //si el usuario puede o no acceder a esta validación
     public function authorize(): bool
     {
+        //el usuario puede usar la validación
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+    //reglas para la validación de los datos
     public function rules(): array
     {
         return [

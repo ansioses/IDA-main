@@ -32,11 +32,8 @@ class Propiedades extends Model
 
     protected $perPage = 20;
 
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
+
+    //campos que se pueden completar de forma masiva o a través de formularios
     protected $fillable = ['titulo', 'descripcion', 'precio', 'direccion', 'cliente_id', 'habitaciones', 'WC', 'plantas', 'tipo', 'size'];
 
 
@@ -45,6 +42,7 @@ class Propiedades extends Model
      */
     public function clientes()
     {
+        //definimos la relación inversa que existe con la tabla propiedades (una de muchas propiedades para cada cliente)
         return $this->belongsTo(\App\Models\Cliente::class, 'cliente_id', 'id');
     }
 
@@ -53,10 +51,12 @@ class Propiedades extends Model
      */
     public function bids()
     {
+        //relación directa de uno a muchos
         return $this->hasMany(\App\Models\Bid::class, 'id', 'propiedad_id');
     }
     public function ofertas()
     {
+        //relación directa de uno a muchos
         return $this->hasMany(\App\Models\ofertas::class, 'id', 'propiedad_id');
     }
     /**
@@ -64,6 +64,7 @@ class Propiedades extends Model
      */
     public function imagenes()
     {
+        //relación directa de uno a muchos
         return $this->hasMany(\App\Models\Imagenes::class, 'id', 'propiedad_id');
     }
 

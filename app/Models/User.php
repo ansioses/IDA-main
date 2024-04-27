@@ -50,6 +50,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+    //variables de asignación masiva
     protected $fillable = ['name', 'email', 'password', 'two_factor_secret', 'two_factor_recovery_codes', 'two_factor_confirmed_at', 'current_team_id', 'profile_photo_path'];
 
 
@@ -58,6 +59,7 @@ class User extends Authenticatable
      */
     public function bids()
     {
+        //relación directa de uno a muchos
         return $this->hasMany(\App\Models\Bid::class, 'id', 'user_id');
     }
 
@@ -66,6 +68,7 @@ class User extends Authenticatable
      */
     public function mensajesEmisor()
     {
+        //relación directa de uno a muchos
         return $this->hasMany(\App\Models\Mensaje::class, 'id', 'emisor_id');
     }
 
@@ -74,6 +77,7 @@ class User extends Authenticatable
      */
     public function mensajesReceptor()
     {
+        //relación directa de uno a muchos
         return $this->hasMany(\App\Models\Mensaje::class, 'id', 'receptor_id');
     }
 }

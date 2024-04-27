@@ -33,4 +33,19 @@ class PropiedadesRequest extends FormRequest
             'size' => 'required|numeric'
         ];
     }
+    //sobreescribimos el método de la clase heredada  FormRequest para traducir los mensajes
+    public function messages()
+    {
+        return [
+            'titulo.required' => 'El :attribute es obligatorio.',
+            'descripcion.required' => 'La :attribute es obligatoria.',
+            'precio.required' => 'La propiedad debe tener un :attribute.',
+            'direccion.required' => 'Necesitamos saber tu :attribute .',
+            'habitaciones.required' => 'Necesitamos saber la cantidad de :attribute .',
+            'WC.required' => 'Necesitamos saber la cantidad de :attribute .',
+            'plantas.required' => 'Necesitamos saber la cantidad de :attribute.',
+            'tipo.required' => 'Necesitamos saber el :attribute  de propiedad.',
+            'size.required' => 'Necesitamos saber el tamaño de la propiedad.',
+        ];
+    }
 }

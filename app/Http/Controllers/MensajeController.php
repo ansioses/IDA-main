@@ -9,6 +9,9 @@ use App\Http\Requests\MensajeRequest;
  * Class MensajeController
  * @package App\Http\Controllers
  */
+
+
+//esta clase no se maneja en el estado actual del proyecto, la idea era un sistema de comunicaciones con los clientes mediante mail
 class MensajeController extends Controller
 {
     /**

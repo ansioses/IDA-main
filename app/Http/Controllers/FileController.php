@@ -14,7 +14,6 @@ class FileController extends Controller
     public function index()
     {
         return view('files.index');
-        
     }
 
     /**
@@ -23,12 +22,12 @@ class FileController extends Controller
     public function create()
     {
         return view('files.create');
-     
     }
 
     /**
      * Store a newly created resource in storage.
      */
+    //esta función no se usa en producción, es para realizar pruebas
     public function store(Request $request)
     {
         return $request->all();
@@ -41,11 +40,9 @@ class FileController extends Controller
         $url = Storage::url($imagenes);
 
         File::create([
-            'name' =>$imagenes,
-            'ruta' => $url, ]);
-
-        
-     
+            'name' => $imagenes,
+            'ruta' => $url,
+        ]);
     }
 
     /**
@@ -53,7 +50,6 @@ class FileController extends Controller
      */
     public function show($file)
     {
-      
     }
 
     /**
@@ -61,7 +57,6 @@ class FileController extends Controller
      */
     public function edit($id)
     {
-       
     }
 
     /**
@@ -69,11 +64,9 @@ class FileController extends Controller
      */
     public function update(Request $request)
     {
-      
     }
 
     public function destroy($id)
     {
-       
     }
 }

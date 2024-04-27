@@ -9,16 +9,16 @@ class Imagenes extends Model
 {
     use HasFactory;
 
-
+    //campos que se pueden completar de forma masiva (formularios o seeders)
     protected $fillable = [
         'inmueble',
         'ruta'
     ];
-     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
+
     public function Imagenes()
     {
+        //definimos la relación inversa que existe con la tabla propiedades (una de muchas imágenes para cada propiedad)
         return $this->belongsTo(\App\Models\Propiedades::class, 'id', 'inmueble');
     }
 }

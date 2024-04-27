@@ -9,19 +9,18 @@ use App\Models\ofertas;
 use App\Models\Propiedades;
 use Illuminate\Http\Request;
 
+//controla todo lo relacinado con las ofertas realizadas pora la compra de las propiedades
 class OfertaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index($id)
     {
-        // $atributo = $request;
+        //consultamos la propiedad que tenga un determinado id
         $propiedad = Propiedades::find($id);
+        //creamos un array y lo completamos con el id para devolverlo a la vista
         $data = [
             'id' => $id
         ];
-        // dd($id);
         return view('login.oferta', compact('data'))->with(compact('propiedad'));
     }
 
@@ -36,6 +35,7 @@ class OfertaController extends Controller
     //recibimos tanto los datos del formulario como el id del inmueble
     public function store(OfertaRequest $request, $id)
     {
+        //creamos un objeto ofertas correspondiente al modelo de la tabla, completamos los datos y se guarda en la base de datos
         $oferta = new ofertas();
         $oferta->nombre = $request->nombre;
         $oferta->apellidos = $request->apellidos;
@@ -43,15 +43,8 @@ class OfertaController extends Controller
         $oferta->direccion = $request->direccion;
         $oferta->telefono = $request->telefono;
         $oferta->propiedad_id = $id;
-        // $oferta->validated();
         $oferta->save();
-        $mensaje = 'Oferta realizada';
-        $data = [
-            'id' => $id
-        ];
-        // dd($id);
-        return redirect()->route('portal')->with(['msg' => 'Oferta realizada']);;
-        // return view('login.oferta', compact('data'))->with(['msg' => 'Oferta realizada']);
+        return redirect()->route('portal')->with(['msg' => 'Oferta realizada']);
     }
 
     /**
@@ -78,11 +71,10 @@ class OfertaController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    //eliminación de ofertas
     public function destroy(string $id)
     {
+        //buscamos la oferta que se corresponda con el id seleccionado y se elimina
         ofertas::find($id)->delete();
         return redirect()->route('dashboard')->with('success', 'Oferta eliminada');;
     }

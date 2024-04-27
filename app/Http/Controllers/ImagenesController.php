@@ -54,20 +54,11 @@ class ImagenesController extends Controller
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    // public function destroy(string $id)
-    // {
-    //     //
-    // }
+    //eliminación de imágenes
     public function destroy($id)
     {
+        //buscamos la imagen seleccionada y la eliminamos
         Imagenes::find($id)->delete();
         return back();
-
-        // return redirect()->route('propiedades.index')
-        //     ->with('success', 'Propiedade deleted successfully');
     }
 }

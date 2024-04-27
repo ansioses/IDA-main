@@ -14,11 +14,8 @@ class UserRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+
+    //validación de los datos proporcionados para un usuario
     public function rules(): array
     {
         return [
@@ -26,8 +23,9 @@ class UserRequest extends FormRequest
             'email' => 'required|string',
             'two_factor_secret' => 'string',
             'two_factor_recovery_codes' => 'string',
+            //esto permite comprobar si se ha puesto la misma contraseña en los dos campos del formulario
+            //para saber que no se ha escrito mal
             'password' => 'required|confirmed'
-            // 'profile_photo_path' => 'string',
         ];
     }
 }
