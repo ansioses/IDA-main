@@ -109,7 +109,7 @@
                                                                 {{ $propiedad->titulo }}</p>
                                                             <p
                                                                 class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70">
-                                                                {{-- Fecha de alta: {{ $propiedad->created_at->format('d-m-Y') }} --}}
+
                                                             </p>
                                                         </div>
                                                     </div>
@@ -170,7 +170,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- {!! $propiedades->links() !!} --}}
                 </div>
             </div>
         </div>

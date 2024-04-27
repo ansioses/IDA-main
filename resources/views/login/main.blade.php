@@ -93,29 +93,6 @@
             </p>
         </div>
     </div>
-    {{-- <div class="six" style="background-image:{{ asset('images/imagesPlantilla/10.jpg') }}"><br><br>
-        <h3 class="text-center text-white">Ready to rent the house?</h3><br><br>
-        <p class="text-center text-white">Many desktop publishing packages and web page editors now use Lorem Ipsum as
-            their
-            default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
-            Various
-            versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the
-            like).
-        </p>
-        <div class="row">
-            <div class="container col-12 jumbotron">
-                <form class="form-inline" action="send_form_email.php">
-                    <label for="name">Name</label>
-                    <input type="password" class="form-control" id="name" placeholder="Name" name="name">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-                    <label for="tel">Telephone</label>
-                    <input type="password" class="form-control" id="tel" placeholder="Name" name="name">
-                    <button type="submit" class="btn w3-flat-sun-flower">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div> --}}
 </body>
 
 </html>

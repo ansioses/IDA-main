@@ -6,7 +6,7 @@
 
 
 
-                <!-- Navigation Links -->
+                <!-- Enlaces de navegación -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('portal') }}" :active="request()->routeIs('main')">
                         {{ __('Página principal') }}
@@ -42,7 +42,6 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="relative ms-3">
                         <x-dropdown align="right" width="60">
@@ -63,12 +62,10 @@
 
                             <x-slot name="content">
                                 <div class="w-60">
-                                    <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
                                         {{ __('Manage Team') }}
                                     </div>
 
-                                    <!-- Team Settings -->
                                     <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
                                         {{ __('Team Settings') }}
                                     </x-dropdown-link>
@@ -79,7 +76,6 @@
                                         </x-dropdown-link>
                                     @endcan
 
-                                    <!-- Team Switcher -->
                                     @if (Auth::user()->allTeams()->count() > 1)
                                         <div class="border-t border-gray-200"></div>
 
@@ -97,7 +93,6 @@
                     </div>
                 @endif
 
-                <!-- Settings Dropdown -->
                 <div class="relative ms-3">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">

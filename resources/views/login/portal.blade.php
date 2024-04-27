@@ -176,8 +176,6 @@
         @endphp
     @endforeach
 
-    {{-- {{ $imagenes }} --}}
-
 
 </body>
 

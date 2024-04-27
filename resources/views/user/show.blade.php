@@ -43,9 +43,6 @@
 
                     <div class="bg-white card-body">
 
-                        <!-- component -->
-                        <!-- This is an example component -->
-
                         <div class="h-full">
 
                             <div class="block border-b-2 md:flex">

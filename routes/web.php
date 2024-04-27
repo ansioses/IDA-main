@@ -11,9 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\PropiedadesController;
 
-// Route::get('/', function () {
-//     return redirect('/login');
-// });
+
 Route::get('/', function () {
     return view('login.main');
 });

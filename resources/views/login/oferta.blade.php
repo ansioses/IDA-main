@@ -83,8 +83,6 @@
         </div>
     @endisset
     <div class="oferta-main-wrapper">
-        <!-- Author: oferta Team -->
-        <!-- Learn More: https://oferta.com -->
         <div class="oferta-form-wrapper">
             <form action="{{ route('oferta', $data['id']) }}" method="POST" ">
                 @method('PUT')
